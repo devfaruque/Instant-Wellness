@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZOLV | Instant Wellness. Zero Water Needed.</title>
+  <meta name="description" content="ZOLV ultra-thin dissolvable oral strips for energy, sleep, focus and NAD+ support. Pocket-sized, sugar-free, no water needed." />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ZOLV | Instant Wellness. Zero Water Needed." />
+  <meta property="og:description" content="Ultra-thin dissolvable oral strips. Pocket-sized. Zero sugar. No water needed." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink: '#0f172a',
+            zolv: { energy: '#f97316', sleep: '#1e40af', focus: '#10b981', nad: '#8b5cf6' }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ---------- Custom styles ---------- */
+    body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* Offset anchor targets for the fixed nav */
+    section[id] { scroll-margin-top: 90px; }
+
+    /* Glassmorphism nav */
+    .glass {
+      background: rgba(255, 255, 255, 0.72);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      backdrop-filter: saturate(180%) blur(16px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    /* Hero soft background */
+    .hero-bg {
+      background:
+        radial-gradient(60% 50% at 85% 10%, rgba(139, 92, 246, 0.10) 0%, transparent 60%),
+        radial-gradient(50% 50% at 10% 20%, rgba(16, 185, 129, 0.10) 0%, transparent 60%),
+        radial-gradient(50% 40% at 50% 100%, rgba(249, 115, 22, 0.08) 0%, transparent 60%),
+        #ffffff;
+    }
+
+    /* Product cards use a CSS variable for the accent colour */
+    .product-card {
+      --accent: #0f172a;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 24px 48px -16px color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+    .accent-bg   { background-color: var(--accent); }
+    .accent-text { color: var(--accent); }
+    .accent-soft { background-color: color-mix(in srgb, var(--accent) 10%, white); }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* Floating animation for the hero placeholder */
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    /* Toast */
+    #toast { transition: opacity .3s ease, transform .3s ease; }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .floaty, .product-card { animation: none; transition: none; }
+    }
+
+    :focus-visible { outline: 2px solid #0f172a; outline-offset: 3px; border-radius: 6px; }
+  </style>
+</head>
+
+<body class="bg-white text-ink antialiased">
+
+  <!-- Skip link (accessibility) -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-lg">
+    Skip to content
+  </a>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header id="navbar" class="glass fixed top-0 inset-x-0 z-50 transition-shadow duration-300">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between" aria-label="Primary">
+      <!-- Logo -->
+      <a href="#top" class="text-2xl font-extrabold tracking-[0.25em] text-ink" aria-label="ZOLV home">ZOLV</a>
+
+      <!-- Desktop links (centered) -->
+      <ul class="hidden md:flex items-center gap-10 text-sm font-medium text-slate-600">
+        <li><a href="#shop" class="hover:text-ink transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-ink after:transition-all hover:after:w-full">Shop</a></li>
+        <li><a href="#how-it-works" class="hover:text-ink transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-ink after:transition-all hover:after:w-full">How it Works</a></li>
+        <li><a href="#faq" class="hover:text-ink transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-ink after:transition-all hover:after:w-full">FAQ</a></li>
+      </ul>
+
+      <!-- Right side -->
+      <div class="flex items-center gap-3">
+        <!-- Cart indicator -->
+        <a href="#shop" class="relative p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Cart">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12l-1 12H7L6 7Zm3 0V6a3 3 0 0 1 6 0v1"/></svg>
+          <span id="cart-count" class="absolute -top-0.5 -right-0.5 min-w-[1.15rem] h-[1.15rem] px-1 rounded-full bg-ink text-white text-[10px] font-semibold flex items-center justify-center scale-0 transition-transform">0</span>
+        </a>
+
+        <a href="#shop" class="hidden md:inline-flex items-center rounded-full bg-ink text-white text-sm font-semibold px-5 py-2.5 hover:bg-slate-700 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+          Subscribe &amp; Save
+        </a>
+
+        <!-- Hamburger -->
+        <button id="menu-btn" type="button" class="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+                aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+          <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200/70 bg-white/90 backdrop-blur-xl">
+      <ul class="px-4 py-4 space-y-1 text-base font-medium">
+        <li><a href="#shop" class="mobile-link block rounded-lg px-3 py-3 hover:bg-slate-100">Shop</a></li>
+        <li><a href="#how-it-works" class="mobile-link block rounded-lg px-3 py-3 hover:bg-slate-100">How it Works</a></li>
+        <li><a href="#faq" class="mobile-link block rounded-lg px-3 py-3 hover:bg-slate-100">FAQ</a></li>
+        <li class="pt-2"><a href="#shop" class="mobile-link block text-center rounded-full bg-ink text-white font-semibold px-5 py-3">Subscribe &amp; Save</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section id="top" class="hero-bg pt-28 pb-16 sm:pt-32 lg:pt-40 lg:pb-28 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <!-- Copy -->
+        <div class="text-center lg:text-left reveal">
+          <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-600">
+            <span class="w-2 h-2 rounded-full bg-zolv-focus"></span> Dissolvable oral strips
+          </span>
+          <h1 class="mt-6 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.05]">
+            Instant Wellness.<br />
+            <span class="bg-gradient-to-r from-zolv-energy via-zolv-nad to-zolv-sleep bg-clip-text text-transparent">Zero Water Needed.</span>
+          </h1>
+          <p class="mt-6 text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Ultra-thin strips that melt on your tongue. Slip a flip-top pack in your pocket and take your daily routine anywhere: no bottles, no capsules, no sugar.
+          </p>
+          <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            <a href="#shop" class="inline-flex justify-center items-center rounded-full bg-ink text-white font-semibold px-8 py-4 hover:bg-slate-700 hover:shadow-xl hover:-translate-y-0.5 transition-all">Shop Now</a>
+            <a href="#how-it-works" class="inline-flex justify-center items-center rounded-full border border-slate-300 bg-white/70 font-semibold px-8 py-4 hover:border-ink hover:bg-white hover:-translate-y-0.5 transition-all">Learn More</a>
+          </div>
+          <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-2 justify-center lg:justify-start text-sm text-slate-500">
+            <li class="flex items-center gap-2"><span class="text-zolv-focus">&#10003;</span> Zero sugar</li>
+            <li class="flex items-center gap-2"><span class="text-zolv-focus">&#10003;</span> Pocket-sized</li>
+            <li class="flex items-center gap-2"><span class="text-zolv-focus">&#10003;</span> No water</li>
+          </ul>
+        </div>
+
+        <!-- Image placeholder: replace with <img src="your-image.webp" alt="ZOLV flip-top pack" width="640" height="640" fetchpriority="high"> -->
+        <div class="reveal flex justify-center">
+          <div class="floaty relative w-full max-w-md aspect-square rounded-[2.5rem] bg-white/60 border-2 border-dashed border-slate-300 flex flex-col items-center justify-center text-center p-8 shadow-[0_30px_80px_-30px_rgba(15,23,42,0.25)]"
+               role="img" aria-label="Placeholder for premium flip-top packaging image">
+            <svg class="w-14 h-14 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.4" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M7 8h10"/></svg>
+            <p class="mt-4 font-semibold text-slate-500">Premium flip-top packaging</p>
+            <p class="text-sm text-slate-400">Image placeholder (recommended 800 &times; 800)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRODUCT FAMILY ===================== -->
+    <section id="shop" class="py-20 lg:py-28 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center reveal">
+          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-slate-500">The ZOLV Family</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">One strip. Four ways to show up.</h2>
+          <p class="mt-4 text-slate-600">Pick the strip that fits the moment, or build a routine with all four.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <!-- Energy -->
+          <article class="product-card reveal flex flex-col bg-white rounded-3xl border border-slate-200 p-5" style="--accent:#f97316">
+            <div class="accent-soft aspect-[4/5] rounded-2xl border-2 border-dashed flex flex-col items-center justify-center text-center p-4" style="border-color: color-mix(in srgb, var(--accent) 40%, white)" role="img" aria-label="Energy sachet image placeholder">
+              <svg class="w-10 h-10 accent-text" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z"/></svg>
+              <span class="mt-3 text-xs font-medium text-slate-500">Sachet image</span>
+            </div>
+            <div class="mt-5 flex-1">
+              <span class="inline-block text-[11px] font-bold tracking-widest uppercase accent-text">Daytime</span>
+              <h3 class="mt-1 text-xl font-bold">ZOLV Energy</h3>
+              <p class="mt-2 text-sm text-slate-600 leading-relaxed">A bright, clean lift for busy mornings and afternoon slumps, without the can.</p>
+            </div>
+            <div class="mt-5 flex items-center justify-between">
+              <span class="font-semibold">$24 <span class="text-xs font-normal text-slate-400">/ pack</span></span>
+              <button type="button" class="add-to-cart accent-bg text-white text-sm font-semibold rounded-full px-5 py-2.5 hover:brightness-110 hover:shadow-lg active:scale-95 transition-all" data-product="Energy">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Sleep -->
+          <article class="product-card reveal flex flex-col bg-white rounded-3xl border border-slate-200 p-5" style="--accent:#1e40af">
+            <div class="accent-soft aspect-[4/5] rounded-2xl border-2 border-dashed flex flex-col items-center justify-center text-center p-4" style="border-color: color-mix(in srgb, var(--accent) 40%, white)" role="img" aria-label="Sleep sachet image placeholder">
+              <svg class="w-10 h-10 accent-text" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+              <span class="mt-3 text-xs font-medium text-slate-500">Sachet image</span>
+            </div>
+            <div class="mt-5 flex-1">
+              <span class="inline-block text-[11px] font-bold tracking-widest uppercase accent-text">Evening</span>
+              <h3 class="mt-1 text-xl font-bold">ZOLV Sleep</h3>
+              <p class="mt-2 text-sm text-slate-600 leading-relaxed">A calming bedtime ritual that helps you wind down and drift off.</p>
+            </div>
+            <div class="mt-5 flex items-center justify-between">
+              <span class="font-semibold">$24 <span class="text-xs font-normal text-slate-400">/ pack</span></span>
+              <button type="button" class="add-to-cart accent-bg text-white text-sm font-semibold rounded-full px-5 py-2.5 hover:brightness-110 hover:shadow-lg active:scale-95 transition-all" data-product="Sleep">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- Focus -->
+          <article class="product-card reveal flex flex-col bg-white rounded-3xl border border-slate-200 p-5" style="--accent:#10b981">
+            <div class="accent-soft aspect-[4/5] rounded-2xl border-2 border-dashed flex flex-col items-center justify-center text-center p-4" style="border-color: color-mix(in srgb, var(--accent) 40%, white)" role="img" aria-label="Focus sachet image placeholder">
+              <svg class="w-10 h-10 accent-text" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>
+              <span class="mt-3 text-xs font-medium text-slate-500">Sachet image</span>
+            </div>
+            <div class="mt-5 flex-1">
+              <span class="inline-block text-[11px] font-bold tracking-widest uppercase accent-text">Deep work</span>
+              <h3 class="mt-1 text-xl font-bold">ZOLV Focus</h3>
+              <p class="mt-2 text-sm text-slate-600 leading-relaxed">Sharpen your attention for study sessions, meetings and creative work.</p>
+            </div>
+            <div class="mt-5 flex items-center justify-between">
+              <span class="font-semibold">$24 <span class="text-xs font-normal text-slate-400">/ pack</span></span>
+              <button type="button" class="add-to-cart accent-bg text-white text-sm font-semibold rounded-full px-5 py-2.5 hover:brightness-110 hover:shadow-lg active:scale-95 transition-all" data-product="Focus">Add to Cart</button>
+            </div>
+          </article>
+
+          <!-- NAD+ -->
+          <article class="product-card reveal flex flex-col bg-white rounded-3xl border border-slate-200 p-5" style="--accent:#8b5cf6">
+            <div class="accent-soft aspect-[4/5] rounded-2xl border-2 border-dashed flex flex-col items-center justify-center text-center p-4" style="border-color: color-mix(in srgb, var(--accent) 40%, white)" role="img" aria-label="NAD+ sachet image placeholder">
+              <svg class="w-10 h-10 accent-text" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m12 3 2.4 5.6L20 9l-4.2 4 1.2 6L12 16.2 7 19l1.2-6L4 9l5.6-.4L12 3Z"/></svg>
+              <span class="mt-3 text-xs font-medium text-slate-500">Sachet image</span>
+            </div>
+            <div class="mt-5 flex-1">
+              <span class="inline-block text-[11px] font-bold tracking-widest uppercase accent-text">Daily support</span>
+              <h3 class="mt-1 text-xl font-bold">ZOLV NAD+</h3>
+              <p class="mt-2 text-sm text-slate-600 leading-relaxed">A premium daily-support strip for your long-term wellness routine.</p>
+            </div>
+            <div class="mt-5 flex items-center justify-between">
+              <span class="font-semibold">$34 <span class="text-xs font-normal text-slate-400">/ pack</span></span>
+              <button type="button" class="add-to-cart accent-bg text-white text-sm font-semibold rounded-full px-5 py-2.5 hover:brightness-110 hover:shadow-lg active:scale-95 transition-all" data-product="NAD+">Add to Cart</button>
+            </div>
+          </article>
+        </div>
+
+        <p class="mt-8 text-center text-xs text-slate-400">Prices and benefit copy are placeholders. Update them to match your final formulations and local regulations.</p>
+      </div>
+    </section>
+
+    <!-- ===================== WHY ZOLV ===================== -->
+    <section id="how-it-works" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center reveal">
+          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-slate-500">Why ZOLV</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Wellness, minus the baggage.</h2>
+          <p class="mt-4 text-slate-600">Open the pack, place a strip on your tongue, and let it dissolve. That's the whole routine.</p>
+        </div>
+
+        <!-- Features -->
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="reveal group rounded-3xl border border-slate-200 p-7 hover:border-ink hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 group-hover:bg-ink group-hover:text-white flex items-center justify-center transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2"/><path stroke-linecap="round" d="M11 18h2"/></svg>
+            </div>
+            <h3 class="mt-5 font-bold text-lg">Pocket-sized</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">A slim flip-top pack that fits any pocket, gym bag or carry-on.</p>
+          </div>
+          <div class="reveal group rounded-3xl border border-slate-200 p-7 hover:border-ink hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 group-hover:bg-ink group-hover:text-white flex items-center justify-center transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3s6 6.2 6 10.5A6 6 0 0 1 6 13.5C6 9.2 12 3 12 3Z"/><path stroke-linecap="round" d="M4 4l16 16"/></svg>
+            </div>
+            <h3 class="mt-5 font-bold text-lg">No water needed</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Dissolves on your tongue, so there is nothing to swallow and nothing to wash down.</p>
+          </div>
+          <div class="reveal group rounded-3xl border border-slate-200 p-7 hover:border-ink hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 group-hover:bg-ink group-hover:text-white flex items-center justify-center transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 7v5c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V7l-8-4Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3 class="mt-5 font-bold text-lg">Zero sugar</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">No sugar crash and no sugary aftertaste. Just a clean, light flavour.</p>
+          </div>
+          <div class="reveal group rounded-3xl border border-slate-200 p-7 hover:border-ink hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 group-hover:bg-ink group-hover:text-white flex items-center justify-center transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path stroke-linecap="round" d="M12 9v4l2.5 2M9 3h6"/></svg>
+            </div>
+            <h3 class="mt-5 font-bold text-lg">Fast absorption</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">Melts in the mouth in moments, so it fits into your day with no waiting around.</p>
+          </div>
+        </div>
+
+        <!-- Comparison -->
+        <div class="mt-16 reveal">
+          <h3 class="text-center text-2xl font-bold">How ZOLV compares</h3>
+          <div class="mt-8 overflow-x-auto rounded-3xl border border-slate-200">
+            <table class="w-full min-w-[560px] text-sm text-left">
+              <thead class="bg-slate-50 text-slate-500 uppercase text-xs tracking-wider">
+                <tr>
+                  <th scope="col" class="px-6 py-4 font-semibold"><span class="sr-only">Feature</span></th>
+                  <th scope="col" class="px-6 py-4 font-bold text-ink">ZOLV Strips</th>
+                  <th scope="col" class="px-6 py-4 font-semibold">Pills</th>
+                  <th scope="col" class="px-6 py-4 font-semibold">Energy Drinks</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr><th scope="row" class="px-6 py-4 font-medium">Needs water</th><td class="px-6 py-4 font-semibold text-zolv-focus">No</td><td class="px-6 py-4 text-slate-500">Usually</td><td class="px-6 py-4 text-slate-500">It is the water</td></tr>
+                <tr><th scope="row" class="px-6 py-4 font-medium">Easy to carry</th><td class="px-6 py-4 font-semibold text-zolv-focus">Slim pocket pack</td><td class="px-6 py-4 text-slate-500">Bottle or blister</td><td class="px-6 py-4 text-slate-500">Bulky can</td></tr>
+                <tr><th scope="row" class="px-6 py-4 font-medium">Sugar</th><td class="px-6 py-4 font-semibold text-zolv-focus">Zero</td><td class="px-6 py-4 text-slate-500">Varies</td><td class="px-6 py-4 text-slate-500">Varies by brand</td></tr>
+                <tr><th scope="row" class="px-6 py-4 font-medium">Swallowing required</th><td class="px-6 py-4 font-semibold text-zolv-focus">No</td><td class="px-6 py-4 text-slate-500">Yes</td><td class="px-6 py-4 text-slate-500">Yes</td></tr>
+                <tr><th scope="row" class="px-6 py-4 font-medium">Ready on the go</th><td class="px-6 py-4 font-semibold text-zolv-focus">Instantly</td><td class="px-6 py-4 text-slate-500">Needs a drink</td><td class="px-6 py-4 text-slate-500">Needs a fridge</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="py-20 lg:py-28 bg-slate-50">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center reveal">
+          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-slate-500">FAQ</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">Good questions</h2>
+        </div>
+
+        <div class="mt-10 space-y-3 reveal">
+          <details class="group bg-white rounded-2xl border border-slate-200 p-5 open:shadow-md transition-shadow">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">
+              How do I use a ZOLV strip?
+              <span class="ml-4 transition-transform group-open:rotate-45 text-xl leading-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">Place one strip on your tongue and let it dissolve. No water is needed. Always follow the directions printed on your pack.</p>
+          </details>
+          <details class="group bg-white rounded-2xl border border-slate-200 p-5 open:shadow-md transition-shadow">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">
+              How does Subscribe &amp; Save work?
+              <span class="ml-4 transition-transform group-open:rotate-45 text-xl leading-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">Choose your favourite strips and a delivery schedule. You get a subscriber discount and can pause or cancel any time. (Edit this answer to match your real subscription terms.)</p>
+          </details>
+          <details class="group bg-white rounded-2xl border border-slate-200 p-5 open:shadow-md transition-shadow">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">
+              Can I take more than one variant in a day?
+              <span class="ml-4 transition-transform group-open:rotate-45 text-xl leading-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">Each variant has its own usage guidance on the pack. If you are pregnant, nursing, on medication or have a health condition, speak with a healthcare professional first.</p>
+          </details>
+          <details class="group bg-white rounded-2xl border border-slate-200 p-5 open:shadow-md transition-shadow">
+            <summary class="flex cursor-pointer list-none items-center justify-between font-semibold">
+              Where do you ship?
+              <span class="ml-4 transition-transform group-open:rotate-45 text-xl leading-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">Add your real shipping regions, timelines and return policy here.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-ink text-slate-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid gap-12 lg:grid-cols-3">
+        <div>
+          <a href="#top" class="text-2xl font-extrabold tracking-[0.25em] text-white">ZOLV</a>
+          <p class="mt-4 text-sm text-slate-400 max-w-xs leading-relaxed">Ultra-thin dissolvable strips for modern, on-the-go wellness.</p>
+          <div class="mt-6 flex gap-3">
+            <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-white hover:text-ink hover:-translate-y-0.5 transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="X (Twitter)" class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-white hover:text-ink hover:-translate-y-0.5 transition-all">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-7-6.1 7H1.7l8-9.2L1.2 2h7l4.8 6.4L18.9 2Zm-1.2 18h1.9L6.6 3.9H4.5L17.7 20Z"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-white hover:text-ink hover:-translate-y-0.5 transition-all">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8S15.6 3.5 14.3 3.5c-2.6 0-4.3 1.6-4.3 4.4v2.6H7.2v3.3H10V22h3.5Z"/></svg>
+            </a>
+            <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-white hover:text-ink hover:-translate-y-0.5 transition-all">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3c.3 2.2 1.6 3.6 3.8 3.8v3a7 7 0 0 1-3.7-1.2v6.2a5.8 5.8 0 1 1-5.8-5.8c.3 0 .6 0 .9.1v3.1a2.8 2.8 0 1 0 1.9 2.6V3h2.9Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-white font-semibold">Explore</h3>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li><a href="#shop" class="hover:text-white transition-colors">Shop</a></li>
+            <li><a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-white font-semibold">Join the ZOLV list</h3>
+          <p class="mt-4 text-sm text-slate-400">New drops, offers and wellness tips. No spam.</p>
+          <form id="newsletter-form" class="mt-4 flex flex-col sm:flex-row gap-2" novalidate>
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input id="newsletter-email" type="email" required autocomplete="email" placeholder="you@example.com"
+                   class="flex-1 min-w-0 rounded-full bg-slate-800 border border-slate-700 px-5 py-3 text-sm text-white placeholder-slate-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/30" />
+            <button type="submit" class="rounded-full bg-white text-ink text-sm font-semibold px-6 py-3 hover:bg-slate-200 active:scale-95 transition-all">Subscribe</button>
+          </form>
+          <p id="newsletter-msg" class="mt-3 text-sm min-h-[1.25rem]" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="mt-14 pt-8 border-t border-slate-800 text-xs text-slate-500 space-y-2">
+        <p>*These statements have not been evaluated by any regulatory authority. ZOLV products are not intended to diagnose, treat, cure or prevent any disease.</p>
+        <p>&copy; <span id="year">2026</span> ZOLV. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 pointer-events-none z-[60] rounded-full bg-ink text-white text-sm font-medium px-6 py-3 shadow-2xl" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Mobile menu ---------- */
+      const menuBtn = document.getElementById('menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('icon-open');
+      const iconClose = document.getElementById('icon-close');
+
+      function setMenu(open) {
+        menu.classList.toggle('hidden', !open);
+        iconOpen.classList.toggle('hidden', open);
+        iconClose.classList.toggle('hidden', !open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      menuBtn.addEventListener('click', () => setMenu(menu.classList.contains('hidden')));
+      document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+      window.addEventListener('resize', () => { if (window.innerWidth >= 768) setMenu(false); });
+
+      /* ---------- Navbar shadow on scroll ---------- */
+      const navbar = document.getElementById('navbar');
+      const onScroll = () => navbar.classList.toggle('shadow-lg', window.scrollY > 10);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* ---------- Scroll reveal ---------- */
+      const reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              entry.target.style.transitionDelay = (i % 4) * 80 + 'ms';
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        reveals.forEach(el => io.observe(el));
+      } else {
+        reveals.forEach(el => el.classList.add('is-visible'));
+      }
+
+      /* ---------- Toast helper ---------- */
+      const toast = document.getElementById('toast');
+      let toastTimer;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-4');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.add('opacity-0', 'translate-y-4'), 2200);
+      }
+
+      /* ---------- Add to cart (demo, front-end only) ---------- */
+      const cartCount = document.getElementById('cart-count');
+      let count = 0;
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+          count += 1;
+          cartCount.textContent = count;
+          cartCount.classList.remove('scale-0');
+          showToast('ZOLV ' + btn.dataset.product + ' added to your cart');
+          // TODO: connect to your real cart/checkout (Shopify Buy Button, Stripe Checkout, etc.)
+        });
+      });
+
+      /* ---------- Newsletter validation (demo) ---------- */
+      const form = document.getElementById('newsletter-form');
+      const input = document.getElementById('newsletter-email');
+      const msg = document.getElementById('newsletter-msg');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+        msg.className = 'mt-3 text-sm min-h-[1.25rem] ' + (valid ? 'text-emerald-400' : 'text-rose-400');
+        msg.textContent = valid ? 'Thanks for subscribing!' : 'Please enter a valid email address.';
+        if (valid) {
+          form.reset();
+          // TODO: send to your email provider (Mailchimp, Klaviyo, ConvertKit, etc.)
+        }
+      });
+
+      /* ---------- Dynamic year ---------- */
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
